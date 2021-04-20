@@ -17,6 +17,18 @@
         </field>
     </record>
 
+    <!-- this is tree view -->
+    <record model="ir.ui.view" id="task_tree_view">
+        <field name="name">task.tree</field>
+        <field name="model">project_mngm_jp.task</field>
+        <field name="arch" type="xml">
+            <tree string="Task Tree">
+                <field name="name"/>
+                <field name="project_id"/>
+            </tree>
+        </field>
+    </record>
+
 
     <!-- window action -->
     <!--

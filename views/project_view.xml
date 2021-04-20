@@ -13,9 +13,27 @@
                         <field name="description"/>
                         <field name="start_date"/>
                         <field name="end_date"/>
+
+                    </group>
+                    <group>
+                        <field name="task_ids"/>
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <!-- this is tree view -->
+    <record model="ir.ui.view" id="project_tree_view">
+        <field name="name">project.tree</field>
+        <field name="model">project_mngm_jp.project</field>
+        <field name="arch" type="xml">
+            <tree string="Project Tree">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </tree>
         </field>
     </record>
 
@@ -30,6 +48,7 @@
             </search>
         </field>
     </record>
+
 
     <!-- window action -->
     <!--
