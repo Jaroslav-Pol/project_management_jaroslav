@@ -10,4 +10,5 @@ class Project(models.Model):
     description = fields.Text(string='Description')
     start_date = fields.Date(string='Start date')
     end_date = fields.Date(string='End date')
+    task_ids = fields.One2many('project_mngm_jp.task', 'project_id', string='Tasks')
 

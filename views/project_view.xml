@@ -1,31 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-        <!-- window action -->
-        <!--
-            The following tag is an action definition for a "window action",
-            that is an action opening a view or a set of views
-        -->
-        <record model="ir.actions.act_window" id="project_list_action">
-            <field name="name">Projects</field>
-            <field name="res_model">project_mngm_jp.project</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">Create the first project
-                </p>
-            </field>
-        </record>
+    <!-- this is form view for projects -->
+    <record model="ir.ui.view" id="project_form_view">
+        <field name="name">project.form</field>
+        <field name="model">project_mngm_jp.project</field>
+        <field name="arch" type="xml">
+            <form string="Project Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <!-- top level menu: no parent -->
-        <menuitem id="main_project_mngm_jp_menu" name="Project management JP"/>
-        <!-- A first level in the left side menu is needed
-             before using action= attribute -->
-        <menuitem id="project_mngm_jp_menu" name="Projects"
-                  parent="main_project_mngm_jp_menu"/>
-        <!-- the following menuitem should appear *after*
-             its parent openacademy_menu and *after* its
-             action course_list_action -->
-        <menuitem id="project_menu" name="Projects" parent="project_mngm_jp_menu"
-                  action="project_list_action"/>
+    <!-- this is view for searching by description -->
+    <record model="ir.ui.view" id="course_search_view">
+        <field name="name">project.search</field>
+        <field name="model">project_mngm_jp.project</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- window action -->
+    <!--
+        The following tag is an action definition for a "window action",
+        that is an action opening a view or a set of views
+    -->
+    <record model="ir.actions.act_window" id="project_list_action">
+        <field name="name">Projects</field>
+        <field name="res_model">project_mngm_jp.project</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first project
+            </p>
+        </field>
+    </record>
+
+    <!-- top level menu: no parent -->
+    <menuitem id="main_project_mngm_jp_menu" name="Project management JP"/>
+    <!-- A first level in the left side menu is needed
+         before using action= attribute -->
+    <menuitem id="project_mngm_jp_menu" name="Projects"
+              parent="main_project_mngm_jp_menu"/>
+    <!-- the following menuitem should appear *after*
+         its parent openacademy_menu and *after* its
+         action course_list_action -->
+    <menuitem id="project_menu" name="Projects" parent="project_mngm_jp_menu"
+              action="project_list_action"/>
 
 </odoo>
