@@ -14,6 +14,6 @@ class Project(models.Model):
     task_ids = fields.One2many('project_mngm_jp.task', 'project_id', string='Tasks')
     invoice_ids = fields.One2many('project_mngm_jp.invoice', 'project_id', string='Invoices')
 
-    client_id = fields.Many2one('res.partner', string='Customer')
-    leader_id = fields.Many2one('hr.employee', string='Team leaderf')
+    client_id = fields.Many2one('res.partner', string='Client')
+    leader_id = fields.Many2one('hr.employee', string='Team leader')
     employee_ids = fields.Many2many('hr.employee', string='Employees')
