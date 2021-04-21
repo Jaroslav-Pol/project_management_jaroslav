@@ -37,10 +37,10 @@
                         </page>
                         <page string="Invoices">
                             <field name="invoice_ids">
-                                <tree string="Invoices">
+                                <form string="Invoices">
                                     <field name="name"/>
                                     <field name="total"/>
-                                </tree>
+                                </form>
                             </field>
                         </page>
                     </notebook>
