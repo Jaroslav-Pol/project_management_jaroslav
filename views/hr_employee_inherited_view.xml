@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-<!--    &lt;!&ndash; Add instructor field to existing view &ndash;&gt;-->
-<!--    <record model="ir.ui.view" id="partner_form_view">-->
-<!--        <field name="name">partner.project</field>-->
-<!--        <field name="model">res.partner</field>-->
-<!--        <field name="inherit_id" ref="base.view_partner_form"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <notebook position="inside">-->
-<!--                <page string="Projects">-->
-<!--                    <group>-->
-<!--                        <field name="project_ids"/>-->
-<!--                    </group>-->
-<!--                </page>-->
-<!--            </notebook>-->
-<!--        </field>-->
-<!--    </record>-->
+     Add projects field to existing view and adding leader
+    <record model="ir.ui.view" id="employee_leader_form_view">
+        <field name="name">employee.project</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Projects">
+                    <group>
+                        <field name="leader"/>
+                        <field name="project_ids">
+                            <tree string="Projects">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="leader_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
 
     <record model="ir.actions.act_window" id="employees_list_action">
         <field name="name">Employees</field>

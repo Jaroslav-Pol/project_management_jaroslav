@@ -15,5 +15,5 @@ class Project(models.Model):
     invoice_ids = fields.One2many('project_mngm_jp.invoice', 'project_id', string='Invoices')
 
     client_id = fields.Many2one('res.partner', string='Client')
-    leader_id = fields.Many2one('hr.employee', string='Team lead')
+    leader_id = fields.Many2one('hr.employee', string='Team lead', domain=[('leader', '=', True)]) #galima pasirinkti tik zmones kurie yra vadovai
     employee_ids = fields.Many2many('hr.employee', string='Employees')
