@@ -30,6 +30,8 @@
         'views/project_view.xml',
         'views/task_view.xml',
         'views/invoice_view.xml',
+        'views/res_partner_inherited_view.xml',
+        'views/hr_employee_inherited_view.xml'
 
     ],
     # only loaded in demonstration mode

@@ -99,10 +99,12 @@
          before using action= attribute -->
     <menuitem id="project_mngm_jp_menu" name="Projects"
               parent="main_project_mngm_jp_menu"/>
+
     <!-- the following menuitem should appear *after*
          its parent openacademy_menu and *after* its
          action course_list_action -->
     <menuitem id="project_menu" name="Projects" parent="project_mngm_jp_menu"
               action="project_list_action"/>
+
 
 </odoo>
