@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 
 
 class Project(models.Model):
@@ -31,6 +31,7 @@ class Project(models.Model):
             else:
                 record.emp_percent = 100.0 * len(record.employee_ids) / record.max_employees
 
+
     @api.onchange('max_employees', 'employee_ids')
     def _verify_employees_amount(self):
         if self.max_employees <= 0:
@@ -47,3 +48,9 @@ class Project(models.Model):
                     'message': "Increase team size or remove exces employees",
                 },
             }
+
+    @api.constrains('leader_id', 'employee_ids')
+    def _verify_leader_not_in_employees(self):
+        for record in self:
+            if record.leader_id and record.leader_id in record.employee_ids:
+                raise exceptions.ValidationError("A project leader can't be an employee in a team")
