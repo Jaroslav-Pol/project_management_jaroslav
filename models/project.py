@@ -2,8 +2,9 @@
 
 from odoo import models, fields, api
 
+
 class Project(models.Model):
-    _name = 'project_mngm_jp.project'#pirmas yra modulio(aplanko) pav, kitas modelio
+    _name = 'project_mngm_jp.project'  # pirmas yra modulio(aplanko) pav, kitas modelio
     _description = 'Project management'
 
     name = fields.Char(string='Title', required=True)
@@ -15,18 +16,34 @@ class Project(models.Model):
     invoice_ids = fields.One2many('project_mngm_jp.invoice', 'project_id', string='Invoices')
 
     client_id = fields.Many2one('res.partner', string='Client')
-    leader_id = fields.Many2one('hr.employee', string='Team lead', domain=[('leader', '=', True)]) #galima pasirinkti tik zmones kurie yra vadovai
+    leader_id = fields.Many2one('hr.employee', string='Team lead',
+                                domain=[('leader', '=', True)])  # galima pasirinkti tik zmones kurie yra vadovai
     employee_ids = fields.Many2many('hr.employee', string='Employees')
 
     max_employees = fields.Integer(string='Max team')
-    emp_percent = fields.Float(string='Employee percent', compute='_employee_percent')
+    emp_percent = fields.Float(string='Employee percent', compute='_employees_percent')
 
     @api.depends('max_employees', 'employee_ids')
-    def _employee_percent(self):
+    def _employees_percent(self):
         for record in self:
             if not record.max_employees:
                 record.emp_percent = 0.0
             else:
                 record.emp_percent = 100.0 * len(record.employee_ids) / record.max_employees
 
-
+    @api.onchange('max_employees', 'employee_ids')
+    def _verify_employees_amount(self):
+        if self.max_employees <= 0:
+            return {
+                'warning': {
+                    'title': "Incorrect 'Max team' value",
+                    'message': "The number of employees should be positive",
+                },
+            }
+        if self.max_employees < len(self.employee_ids):
+            return {
+                'warning': {
+                    'title': "Too many employees",
+                    'message': "Increase team size or remove exces employees",
+                },
+            }
