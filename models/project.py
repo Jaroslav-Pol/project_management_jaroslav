@@ -21,16 +21,19 @@ class Project(models.Model):
     employee_ids = fields.Many2many('hr.employee', string='Employees')
 
     max_employees = fields.Integer(string='Max team', default='1')
-    emp_percent = fields.Float(string='Employee percent', compute='_employees_percent')
+    employee_percent = fields.Float(string='Employee percent', compute='_employees_percent')
+    employee_amount = fields.Integer(string='Team size', compute='_employee_amount', store=True)
     active = fields.Boolean(default=True, string='Active')
+
+
 
     @api.depends('max_employees', 'employee_ids')
     def _employees_percent(self):
         for record in self:
             if not record.max_employees:
-                record.emp_percent = 0.0
+                record.employee_percent = 0.0
             else:
-                record.emp_percent = 100.0 * len(record.employee_ids) / record.max_employees
+                record.employee_percent = 100.0 * len(record.employee_ids) / record.max_employees
 
 
     @api.onchange('max_employees', 'employee_ids')
@@ -63,4 +66,10 @@ class Project(models.Model):
                 record.duration = 0
                 continue
             record.duration = (record.end_date - record.start_date).days
+
+    @api.constrains('employee_ids')
+    def _employee_amount(self):
+        for record in self:
+            record.employee_amount = len(record.employee_ids)
+
 
