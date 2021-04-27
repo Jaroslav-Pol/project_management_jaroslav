@@ -121,6 +121,50 @@
         </field>
     </record>
 
+    <!-- Kanban -->
+    <record model="ir.ui.view" id="project_kanban_view">
+        <field name="name">project.kanban</field>
+        <field name="model">project_mngm_jp.project</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_content">
+                            <!-- title -->
+                            Project name:
+                            <strong>
+                                <field name="name"/>
+                            </strong>
+                            <br/>
+                            Start date:
+                            <i>
+                                <field name="start_date"/>
+                            </i>
+                            <br/>
+                            End date:
+                            <i>
+                                <field name="end_date"/>
+                            </i>
+                            <br/>
+                            Duration:
+                            <field name="duration"/>
+                            <br/>
+                            Customer:
+                            <i>
+                                <field name="client_id"/>
+                            </i>
+                            <br/>
+                            Team Lead:
+                            <i>
+                                <field name="leader_id"/>
+                            </i>
+                            <br/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
 
     <!-- window action -->
     <!--
@@ -130,7 +174,7 @@
     <record model="ir.actions.act_window" id="project_list_action">
         <field name="name">Projects</field>
         <field name="res_model">project_mngm_jp.project</field>
-        <field name="view_mode">tree,form,calendar,graph,pivot</field>
+        <field name="view_mode">kanban,tree,form,calendar,graph,pivot</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Create the first project
             </p>
