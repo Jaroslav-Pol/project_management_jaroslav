@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# from datetime import datetime???? problrm with days
+
 from odoo import models, fields, api, exceptions
 
 
@@ -22,6 +22,7 @@ class Project(models.Model):
 
     max_employees = fields.Integer(string='Max team', default='1')
     emp_percent = fields.Float(string='Employee percent', compute='_employees_percent')
+    active = fields.Boolean(default=True, string='Active')
 
     @api.depends('max_employees', 'employee_ids')
     def _employees_percent(self):

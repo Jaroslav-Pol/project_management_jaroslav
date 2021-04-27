@@ -19,6 +19,7 @@
                         <field name="start_date"/>
                         <field name="end_date"/>
                         <field name="duration"/>
+                        <field name="active"/>
                     </group>
                     <notebook>
                         <page string="Description">
@@ -78,6 +79,16 @@
             <search>
                 <field name="name"/>
                 <field name="description"/>
+                <filter name="inactive" string="Inactive"
+                        domain="[('active', '=', False)]"/>
+                <group string="Group By">
+                    <filter name="by_leader" string="Team lead"
+                            context="{'group_by': 'leader_id'}"/>
+                </group>
+                <group string="Group By">
+                    <filter name="by_client" string="Customer"
+                            context="{'group_by': 'client_id'}"/>
+                </group>
             </search>
         </field>
     </record>
