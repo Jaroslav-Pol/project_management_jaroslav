@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# from datetime import datetime???? problrm with days
 from odoo import models, fields, api, exceptions
 
 
@@ -20,7 +20,7 @@ class Project(models.Model):
                                 domain=[('leader', '=', True)])  # galima pasirinkti tik zmones kurie yra vadovai
     employee_ids = fields.Many2many('hr.employee', string='Employees')
 
-    max_employees = fields.Integer(string='Max team')
+    max_employees = fields.Integer(string='Max team', default='1')
     emp_percent = fields.Float(string='Employee percent', compute='_employees_percent')
 
     @api.depends('max_employees', 'employee_ids')
@@ -58,4 +58,8 @@ class Project(models.Model):
     @api.depends('start_date', 'end_date')
     def _project_duration(self):
         for record in self:
-            record.duration = (record.end_date-record.start_date).days
+            if not record.end_date:
+                record.duration = 0
+                continue
+            record.duration = (record.end_date - record.start_date).days
+
