@@ -12,10 +12,13 @@
                         <field name="name"/>
                         <field name="client_id"/>
                         <field name="leader_id"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
                         <field name="max_employees"/>
                         <field name="emp_percent" widget="progressbar"/>
+                    </group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="duration"/>
                     </group>
                     <notebook>
                         <page string="Description">
@@ -56,11 +59,12 @@
         <field name="name">project.tree</field>
         <field name="model">project_mngm_jp.project</field>
         <field name="arch" type="xml">
-            <tree string="Project Tree">
+            <tree string="Project Tree" decoration-info="duration&lt;30" decoration-danger="duration&gt;90">
                 <field name="name"/>
                 <field name="description"/>
                 <field name="client_id"/>
                 <field name="leader_id"/>
+                <field name="duration"/>
                 <field name="emp_percent" widget="progressbar"/>
             </tree>
         </field>

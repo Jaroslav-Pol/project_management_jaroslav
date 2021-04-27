@@ -11,10 +11,10 @@ class Project(models.Model):
     description = fields.Text(string='Description')
     start_date = fields.Date(string='Start date')
     end_date = fields.Date(string='End date')
+    duration = fields.Integer(string='Duration (days)', compute='_project_duration')
 
     task_ids = fields.One2many('project_mngm_jp.task', 'project_id', string='Tasks')
     invoice_ids = fields.One2many('project_mngm_jp.invoice', 'project_id', string='Invoices')
-
     client_id = fields.Many2one('res.partner', string='Client')
     leader_id = fields.Many2one('hr.employee', string='Team lead',
                                 domain=[('leader', '=', True)])  # galima pasirinkti tik zmones kurie yra vadovai
@@ -54,3 +54,8 @@ class Project(models.Model):
         for record in self:
             if record.leader_id and record.leader_id in record.employee_ids:
                 raise exceptions.ValidationError("A project leader can't be an employee in a team")
+
+    @api.depends('start_date', 'end_date')
+    def _project_duration(self):
+        for record in self:
+            record.duration = (record.end_date-record.start_date).days
